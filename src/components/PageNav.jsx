@@ -14,11 +14,11 @@ const PageNav = () => {
         <li>
           <NavLink to='/product'>Product</NavLink>
         </li>
-        <li>
+        {/* <li>
           <NavLink to='/login' className={styles.ctaLink}>
             Login
           </NavLink>
-        </li>
+        </li> */}
       </ul>
     </nav>
   )

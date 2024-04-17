@@ -18,22 +18,27 @@ import styles from './Map.module.css'
 const Map = () => {
   const { cities } = useCities()
   const [mapPosition, setMapPosition] = useState([40, 0])
-  const [mapLat, mapLng] = useURLPosition()
-
   const {
     isLoading: isLoadingPosition,
     position: geolocationPosition,
     getPosition
   } = useGeolocation()
+  const [mapLat, mapLng] = useURLPosition()
 
-  useEffect(() => {
-    if (mapLat && mapLng) setMapPosition([mapLat, mapLng])
-  }, [mapLat, mapLng])
+  useEffect(
+    function () {
+      if (mapLat && mapLng) setMapPosition([mapLat, mapLng])
+    },
+    [mapLat, mapLng]
+  )
 
-  useEffect(() => {
-    if (geolocationPosition)
-      setMapPosition([geolocationPosition.lat, geolocationPosition.lng])
-  }, [geolocationPosition])
+  useEffect(
+    function () {
+      if (geolocationPosition)
+        setMapPosition([geolocationPosition.lat, geolocationPosition.lng])
+    },
+    [geolocationPosition]
+  )
 
   return (
     <div className={styles.mapContainer}>
@@ -44,7 +49,7 @@ const Map = () => {
       )}
       <MapContainer
         center={mapPosition}
-        zoom={13}
+        zoom={6}
         scrollWheelZoom={true}
         className={styles.map}
       >
@@ -83,7 +88,7 @@ const DetectedClick = () => {
   const navigate = useNavigate()
 
   useMapEvents({
-    click: e => navigate(`form?lat=${e.latlng.lat}&lng=${e.latlng.lat}`)
+    click: e => navigate(`form?lat=${e.latlng.lat}&lng=${e.latlng.lng}`)
   })
 }
 export default Map
